@@ -3,18 +3,170 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>Veterinary Patient Task Tracker</title>
+<title>Veterinary Patient Task Tracker</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<!-- Screenshot Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    <!-- Screenshot Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+
+/* GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f5f9;
+    margin: 0;
+    padding: 15px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* HEADER */
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #24527a;
+}
+
+#currentDate {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* SECTIONS */
+
+h2 {
+    color: #24527a;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* PATIENT INFORMATION */
+
+.patient-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* TASKS */
+
+.task-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f7f9fc;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.task-item input {
+    width: 22px;
+    height: 22px;
+    accent-color: #28a745;
+}
+
+/* BUTTONS */
+
+button {
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#saveButton {
+    background: #28a745;
+    color: white;
+}
+
+#clearButton {
+    background: #6c757d;
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#status {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 18px;
+    }
+
+    .patient-grid,
+    .task-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -22,205 +174,307 @@
 
 <div class="container">
 
-    <div id="screenshotArea">
+<div id="screenshotArea">
 
-        <!-- HEADER -->
+<header>
 
-        <header>
+<h1>Veterinary Patient Task Tracker</h1>
 
-            <h1>Veterinary Patient Task Tracker</h1>
+<div id="currentDate"></div>
 
-            <div id="currentDate"></div>
+</header>
 
-        </header>
 
+<h2>Patient Information</h2>
 
-        <!-- PATIENT INFORMATION -->
+<div class="patient-grid">
 
-        <section>
+<div class="form-group">
 
-            <h2>Patient Information</h2>
+<label for="patientID">Patient ID</label>
 
-            <div class="patient-grid">
-
-                <div class="form-group">
-
-                    <label for="patientID">Patient ID</label>
-
-                    <input
-                        type="text"
-                        id="patientID"
-                        placeholder="Enter Patient ID"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="patientName">Patient Name</label>
-
-                    <input
-                        type="text"
-                        id="patientName"
-                        placeholder="Enter Patient Name"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="species">Species</label>
-
-                    <select id="species">
-
-                        <option value="">Select Species</option>
-
-                        <option value="Canine">Canine</option>
-
-                        <option value="Feline">Feline</option>
-
-                        <option value="Equine">Equine</option>
-
-                        <option value="Other">Other</option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="breed">Breed</label>
-
-                    <input
-                        type="text"
-                        id="breed"
-                        placeholder="Enter Breed"
-                    >
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TASK LIST -->
-
-        <section>
-
-            <h2>Patient Tasks</h2>
-
-            <div class="task-grid">
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Physical Examination"
-                    >
-
-                    Physical Examination
-
-                </label>
-
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Bloodwork"
-                    >
-
-                    Bloodwork
-
-                </label>
-
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Radiographs"
-                    >
-
-                    Radiographs
-
-                </label>
-
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Ultrasound"
-                    >
-
-                    Ultrasound
-
-                </label>
-
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Medications Administered"
-                    >
-
-                    Medications Administered
-
-                </label>
-
-
-                <label class="task-item">
-
-                    <input
-                        type="checkbox"
-                        value="Patient Discharged"
-                    >
-
-                    Patient Discharged
-
-                </label>
-
-            </div>
-
-        </section>
-
-    </div>
-
-
-    <!-- BUTTONS -->
-
-    <div class="button-container">
-
-        <button
-            id="saveButton"
-            onclick="savePatient()"
-        >
-            Save Patient Record
-        </button>
-
-        <button
-            id="clearButton"
-            onclick="clearForm()"
-        >
-            Clear Form
-        </button>
-
-    </div>
-
-    <p id="saveStatus" role="status" aria-live="polite"></p>
+<input type="text" id="patientID">
 
 </div>
 
 
-<!-- JAVASCRIPT -->
+<div class="form-group">
 
-<script src="script.js"></script>
+<label for="patientName">Patient Name</label>
+
+<input type="text" id="patientName">
+
+</div>
+
+
+<div class="form-group">
+
+<label for="species">Species</label>
+
+<select id="species">
+
+<option value="">Select Species</option>
+<option>Canine</option>
+<option>Feline</option>
+<option>Equine</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="breed">Breed</label>
+
+<input type="text" id="breed">
+
+</div>
+
+</div>
+
+
+<h2>Patient Tasks</h2>
+
+<div class="task-grid">
+
+<label class="task-item">
+<input type="checkbox" value="Physical Examination">
+Physical Examination
+</label>
+
+<label class="task-item">
+<input type="checkbox" value="Bloodwork">
+Bloodwork
+</label>
+
+<label class="task-item">
+<input type="checkbox" value="Radiographs">
+Radiographs
+</label>
+
+<label class="task-item">
+<input type="checkbox" value="Ultrasound">
+Ultrasound
+</label>
+
+<label class="task-item">
+<input type="checkbox" value="Medications Administered">
+Medications Administered
+</label>
+
+<label class="task-item">
+<input type="checkbox" value="Patient Discharged">
+Patient Discharged
+</label>
+
+</div>
+
+</div>
+
+
+<button id="saveButton" onclick="savePatient()">
+Save Patient Record
+</button>
+
+<button id="clearButton" onclick="clearForm()">
+Clear Form
+</button>
+
+<div id="status" role="status" aria-live="polite"></div>
+
+</div>
+
+
+<script>
+
+// ====================================
+// CURRENT DATE
+// ====================================
+
+function updateDate() {
+
+    const today = new Date();
+
+    document.getElementById("currentDate").textContent =
+        today.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+}
+
+updateDate();
+
+setInterval(updateDate, 60000);
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) updateDate();
+});
+
+
+// ====================================
+// SAVE PATIENT
+// ====================================
+
+async function savePatient() {
+
+    const button = document.getElementById("saveButton");
+
+    const status = document.getElementById("status");
+
+    if (button.disabled) return;
+
+    const patientID =
+        document.getElementById("patientID").value.trim();
+
+    const patientName =
+        document.getElementById("patientName").value.trim();
+
+    const species =
+        document.getElementById("species").value;
+
+    const breed =
+        document.getElementById("breed").value.trim();
+
+
+    if (!patientID || !patientName) {
+
+        alert("Please enter Patient ID and Patient Name.");
+
+        return;
+
+    }
+
+
+    // COLLECT COMPLETED TASKS
+
+    const completedTasks = [];
+
+    document.querySelectorAll(
+        '.task-grid input[type="checkbox"]:checked'
+    ).forEach(checkbox => {
+
+        completedTasks.push(checkbox.value);
+
+    });
+
+
+    button.disabled = true;
+
+    status.textContent = "Saving patient record...";
+
+
+    try {
+
+        // TAKE SCREENSHOT
+
+        const canvas = await html2canvas(
+            document.getElementById("screenshotArea"),
+            {
+                backgroundColor: "#ffffff",
+                scale: 2
+            }
+        );
+
+
+        // PREPARE RECORD
+
+        const data = {
+
+            patientID: patientID,
+
+            patientName: patientName,
+
+            species: species,
+
+            breed: breed,
+
+            completedTasks: completedTasks,
+
+            screenshot: canvas.toDataURL("image/png")
+
+        };
+
+
+        // SEND TO GOOGLE APPS SCRIPT
+
+        google.script.run
+
+            .withSuccessHandler(function(result) {
+
+                status.textContent =
+                    "Patient record saved successfully!";
+
+                clearForm(false);
+
+                button.disabled = false;
+
+            })
+
+            .withFailureHandler(function(error) {
+
+                status.textContent =
+                    "Error saving patient record.";
+
+                alert(error.message);
+
+                button.disabled = false;
+
+            })
+
+            .savePatient(data);
+
+
+    } catch (error) {
+
+        status.textContent = "Unable to create screenshot.";
+
+        alert(error.message);
+
+        button.disabled = false;
+
+    }
+
+}
+
+
+// ====================================
+// CLEAR FORM
+// ====================================
+
+function clearForm(confirmClear = true) {
+
+    if (confirmClear && !confirm("Clear the patient form?")) {
+        return;
+    }
+
+    document.getElementById("patientID").value = "";
+
+    document.getElementById("patientName").value = "";
+
+    document.getElementById("species").value = "";
+
+    document.getElementById("breed").value = "";
+
+    document.querySelectorAll(
+        '.task-grid input[type="checkbox"]'
+    ).forEach(checkbox => {
+
+        checkbox.checked = false;
+
+    });
+
+    if (confirmClear) {
+        document.getElementById("status").textContent = "";
+    }
+
+}
+
+</script>
 
 </body>
 </html>
