@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Veterinary Patient Task Tracker</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Screenshot Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="screenshotArea">
+
+        <!-- HEADER -->
+
+        <header>
+
+            <h1>Veterinary Patient Task Tracker</h1>
+
+            <div id="currentDate"></div>
+
+        </header>
+
+
+        <!-- PATIENT INFORMATION -->
+
+        <section>
+
+            <h2>Patient Information</h2>
+
+            <div class="patient-grid">
+
+                <div class="form-group">
+
+                    <label for="patientID">Patient ID</label>
+
+                    <input
+                        type="text"
+                        id="patientID"
+                        placeholder="Enter Patient ID"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="patientName">Patient Name</label>
+
+                    <input
+                        type="text"
+                        id="patientName"
+                        placeholder="Enter Patient Name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="species">Species</label>
+
+                    <select id="species">
+
+                        <option value="">Select Species</option>
+
+                        <option value="Canine">Canine</option>
+
+                        <option value="Feline">Feline</option>
+
+                        <option value="Equine">Equine</option>
+
+                        <option value="Other">Other</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="breed">Breed</label>
+
+                    <input
+                        type="text"
+                        id="breed"
+                        placeholder="Enter Breed"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TASK LIST -->
+
+        <section>
+
+            <h2>Patient Tasks</h2>
+
+            <div class="task-grid">
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Physical Examination"
+                    >
+
+                    Physical Examination
+
+                </label>
+
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Bloodwork"
+                    >
+
+                    Bloodwork
+
+                </label>
+
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Radiographs"
+                    >
+
+                    Radiographs
+
+                </label>
+
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Ultrasound"
+                    >
+
+                    Ultrasound
+
+                </label>
+
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Medications Administered"
+                    >
+
+                    Medications Administered
+
+                </label>
+
+
+                <label class="task-item">
+
+                    <input
+                        type="checkbox"
+                        value="Patient Discharged"
+                    >
+
+                    Patient Discharged
+
+                </label>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-container">
+
+        <button
+            id="saveButton"
+            onclick="savePatient()"
+        >
+            Save Patient Record
+        </button>
+
+        <button
+            id="clearButton"
+            onclick="clearForm()"
+        >
+            Clear Form
+        </button>
+
+    </div>
+
+    <p id="saveStatus" role="status" aria-live="polite"></p>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
