@@ -1,0 +1,202 @@
+/* GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+
+/* MAIN CONTAINER */
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+/* HEADER */
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #24527a;
+    margin-bottom: 10px;
+}
+
+#currentDate {
+    font-size: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+
+/* SECTIONS */
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #24527a;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+
+/* PATIENT GRID */
+
+.patient-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+
+/* TASK GRID */
+
+.task-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.task-item:hover {
+    background-color: #e6eef7;
+}
+
+.task-item input {
+    width: 22px;
+    height: 22px;
+    accent-color: #28a745;
+    flex-shrink: 0;
+}
+
+
+/* BUTTONS */
+
+.button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    flex: 1;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#saveButton {
+    background-color: #28a745;
+    color: white;
+}
+
+#saveButton:hover {
+    background-color: #218838;
+}
+
+#clearButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+#clearButton:hover {
+    background-color: #545b62;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#saveStatus {
+    text-align: center;
+    font-weight: bold;
+    min-height: 24px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .patient-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .task-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+}
