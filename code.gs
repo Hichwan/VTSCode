@@ -1,40 +1,154 @@
-// ======================================
+// ====================================
 // CONFIGURATION
-// ======================================
+// ====================================
 
-// Replace with your deployed backend URL.
-// Do not put GitHub access tokens here.
+// Replace with your Google Sheet ID
+const SHEET_ID = "YOUR_GOOGLE_SHEET_ID";
 
-const API_URL = "YOUR_BACKEND_URL";
+// Replace with your Google Drive folder ID
+const FOLDER_ID = "YOUR_GOOGLE_DRIVE_FOLDER_ID";
 
 
-// ======================================
-// CURRENT DATE
-// ======================================
+// ====================================
+// LOAD WEBSITE
+// ====================================
 
-function updateDate() {
+function doGet() {
 
-    const today = new Date();
-
-    const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    };
-
-    document.getElementById("currentDate").textContent =
-        today.toLocaleDateString("en-US", options);
+  return HtmlService
+    .createHtmlOutputFromFile("Index")
+    .setTitle("Veterinary Patient Task Tracker")
+    .addMetaTag(
+      "viewport",
+      "width=device-width, initial-scale=1"
+    );
 
 }
 
-updateDate();
 
-setInterval(updateDate, 60000);
+// ====================================
+// SAVE PATIENT
+// ====================================
 
-document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) updateDate();
-});
+function savePatient(data) {
+
+  const lock = LockService.getScriptLock();
+
+  lock.waitLock(30000);
+
+  try {
+
+    if (!data.patientID || !data.patientName) {
+      throw new Error("Missing patient information.");
+    }
+
+    const sheet = SpreadsheetApp
+      .openById(SHEET_ID)
+      .getSheets()[0];
+
+    const folder = DriveApp.getFolderById(FOLDER_ID);
+
+    // Generate date and time on server
+    const now = new Date();
+
+    const timezone = Session.getScriptTimeZone();
+
+    const date = Utilities.formatDate(
+      now,
+      timezone,
+      "yyyy-MM-dd"
+    );
+
+    const time = Utilities.formatDate(
+      now,
+      timezone,
+      "HHmmss"
+    );
+
+    const safeID = String(data.patientID)
+      .replace(/[^a-zA-Z0-9_-]/g, "_")
+      .slice(0, 60);
+
+    const filename =
+      safeID + "_" + date + "_" + time + "_" +
+      Utilities.getUuid().slice(0, 8) + ".png";
+
+
+    // ====================================
+    // SAVE SCREENSHOT
+    // ====================================
+
+    const base64 = data.screenshot.split(",")[1];
+
+    if (!base64) {
+      throw new Error("Invalid screenshot.");
+    }
+
+    const imageBytes = Utilities.base64Decode(base64);
+
+    const blob = Utilities.newBlob(
+      imageBytes,
+      "image/png",
+      filename
+    );
+
+    const file = folder.createFile(blob);
+
+
+    // ====================================
+    // SAVE SPREADSHEET ROW
+    // ====================================
+
+    const tasks = Array.isArray(data.completedTasks)
+      ? data.completedTasks.slice(0, 20)
+      : [];
+
+    // Prevent values from being interpreted as formulas.
+    function safeCell(value) {
+      const text = String(value ?? "");
+
+      return /^[\s]*[=+\-@]/.test(text)
+        ? "'" + text
+        : text;
+    }
+
+    const row = [
+      date,
+      safeCell(data.patientID),
+      safeCell(data.patientName),
+      safeCell(data.species),
+      safeCell(data.breed)
+    ];
+
+    // Add completed tasks in consecutive columns
+    tasks.forEach(task => {
+      row.push(safeCell(task));
+    });
+
+    // Fill remaining task columns
+    while (row.length < 25) {
+      row.push("");
+    }
+
+    // Add screenshot link
+    row.push(file.getUrl());
+
+    sheet.appendRow(row);
+
+    SpreadsheetApp.flush();
+
+    return {
+      success: true,
+      filename: filename
+    };
+
+  } finally {
+
+    lock.releaseLock();
+
+  }
+
+}});
 
 
 // ======================================
