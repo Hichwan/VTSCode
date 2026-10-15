@@ -5,17 +5,24 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
 
-<title>Veterinary Patient Task Tracker</title>
+<title>Veterinary Neurology Skills Tracker</title>
 
-<!-- Screenshot Library -->
+
+<!-- SCREENSHOT LIBRARY -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
 <style>
 
-/* GENERAL */
+/* ======================================
+   GENERAL
+====================================== */
 
 * {
     box-sizing: border-box;
@@ -23,136 +30,180 @@ content="width=device-width, initial-scale=1.0">
 
 body {
     font-family: Arial, sans-serif;
-    background: #f2f5f9;
+    background: #f1f5f9;
     margin: 0;
-    padding: 15px;
+    padding: 14px;
+    color: #233044;
 }
+
+
+/* ======================================
+   MAIN CONTAINER
+====================================== */
 
 .container {
-    max-width: 900px;
+    max-width: 1050px;
     margin: auto;
     background: white;
-    padding: 25px;
+    padding: 24px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
 }
 
-/* HEADER */
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
+/* ======================================
+   HEADER
+====================================== */
 
 h1 {
-    color: #24527a;
+    color: #1f4c75;
+    margin: 0 0 8px;
+    text-align: center;
 }
 
 #currentDate {
-    font-size: 18px;
+    text-align: center;
+    color: #536477;
     font-weight: bold;
-    color: #555;
+    margin-bottom: 22px;
 }
 
-/* SECTIONS */
+
+/* ======================================
+   SECTION HEADERS
+====================================== */
 
 h2 {
-    color: #24527a;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+    color: #1f4c75;
+    border-bottom: 2px solid #dce5ed;
+    padding-bottom: 8px;
+    margin-top: 28px;
 }
 
-/* PATIENT INFORMATION */
+
+/* ======================================
+   PATIENT INFORMATION
+====================================== */
 
 .patient-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 16px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
+.field label {
+    display: block;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
-input[type="text"],
-select {
+.field input,
+.field select {
     width: 100%;
-    padding: 12px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #bfcbd6;
+    border-radius: 7px;
 }
 
-/* TASKS */
+
+/* ======================================
+   TASK CHECKBOXES
+====================================== */
 
 .task-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
 }
 
-.task-item {
+.task {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #f7f9fc;
-    padding: 15px;
+    align-items: flex-start;
+    gap: 10px;
+    background: #f5f8fc;
     border-radius: 8px;
+    padding: 13px;
+    line-height: 1.4;
     cursor: pointer;
 }
 
-.task-item input {
-    width: 22px;
-    height: 22px;
-    accent-color: #28a745;
+.task input {
+    margin-top: 3px;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    accent-color: #26854b;
 }
 
-/* BUTTONS */
+.task span {
+    flex: 1;
+}
+
+
+/* ======================================
+   BUTTONS
+====================================== */
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
 
 button {
-    width: 100%;
-    padding: 16px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 8px;
     font-size: 17px;
     font-weight: bold;
+    padding: 15px;
+    border: 0;
+    border-radius: 8px;
     cursor: pointer;
+    flex: 1;
 }
 
 #saveButton {
-    background: #28a745;
+    background: #238748;
     color: white;
+}
+
+#saveButton:hover {
+    background: #1b6e39;
 }
 
 #clearButton {
-    background: #6c757d;
+    background: #6b7280;
     color: white;
 }
 
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+#clearButton:hover {
+    background: #545b65;
 }
+
+button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+
+/* ======================================
+   STATUS MESSAGE
+====================================== */
 
 #status {
     text-align: center;
+    min-height: 22px;
     font-weight: bold;
-    margin-top: 15px;
 }
 
-/* MOBILE */
 
-@media (max-width: 600px) {
+/* ======================================
+   MOBILE DESIGN
+====================================== */
+
+@media (max-width: 650px) {
 
     .container {
-        padding: 18px;
+        padding: 16px;
     }
 
     .patient-grid,
@@ -160,8 +211,16 @@ button:disabled {
         grid-template-columns: 1fr;
     }
 
+    .actions {
+        flex-direction: column;
+    }
+
     h1 {
         font-size: 24px;
+    }
+
+    body {
+        padding: 8px;
     }
 
 }
@@ -170,218 +229,613 @@ button:disabled {
 
 </head>
 
+
 <body>
 
 <div class="container">
 
 <div id="screenshotArea">
 
-<header>
 
-<h1>Veterinary Patient Task Tracker</h1>
+<!-- ======================================
+     HEADER
+====================================== -->
+
+<h1>Veterinary Neurology Skills Tracker</h1>
 
 <div id="currentDate"></div>
 
-</header>
 
+<!-- ======================================
+     PATIENT INFORMATION
+====================================== -->
 
 <h2>Patient Information</h2>
 
 <div class="patient-grid">
 
-<div class="form-group">
+    <div class="field">
 
-<label for="patientID">Patient ID</label>
+        <label for="patientID">
+            Patient ID
+        </label>
 
-<input type="text" id="patientID">
+        <input
+            id="patientID"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter Patient ID"
+        >
 
-</div>
-
-
-<div class="form-group">
-
-<label for="patientName">Patient Name</label>
-
-<input type="text" id="patientName">
-
-</div>
+    </div>
 
 
-<div class="form-group">
+    <div class="field">
 
-<label for="species">Species</label>
+        <label for="patientName">
+            Patient Name
+        </label>
 
-<select id="species">
+        <input
+            id="patientName"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter Patient Name"
+        >
 
-<option value="">Select Species</option>
-<option>Canine</option>
-<option>Feline</option>
-<option>Equine</option>
-<option>Other</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label for="breed">Breed</label>
-
-<input type="text" id="breed">
-
-</div>
-
-</div>
+    </div>
 
 
-<h2>Patient Tasks</h2>
+    <div class="field">
 
-<div class="task-grid">
+        <label for="species">
+            Species
+        </label>
 
-<label class="task-item">
-<input type="checkbox" value="Physical Examination">
-Physical Examination
-</label>
+        <select id="species">
 
-<label class="task-item">
-<input type="checkbox" value="Bloodwork">
-Bloodwork
-</label>
+            <option value="">
+                Select Species
+            </option>
 
-<label class="task-item">
-<input type="checkbox" value="Radiographs">
-Radiographs
-</label>
+            <option>Canine</option>
 
-<label class="task-item">
-<input type="checkbox" value="Ultrasound">
-Ultrasound
-</label>
+            <option>Feline</option>
 
-<label class="task-item">
-<input type="checkbox" value="Medications Administered">
-Medications Administered
-</label>
+            <option>Equine</option>
 
-<label class="task-item">
-<input type="checkbox" value="Patient Discharged">
-Patient Discharged
-</label>
+            <option>Other</option>
 
-</div>
+        </select>
+
+    </div>
+
+
+    <div class="field">
+
+        <label for="breed">
+            Breed
+        </label>
+
+        <input
+            id="breed"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter Breed"
+        >
+
+    </div>
 
 </div>
 
 
-<button id="saveButton" onclick="savePatient()">
-Save Patient Record
-</button>
+<!-- ======================================
+     TASK SECTIONS
+====================================== -->
 
-<button id="clearButton" onclick="clearForm()">
-Clear Form
-</button>
+<div id="taskSections"></div>
 
-<div id="status" role="status" aria-live="polite"></div>
+</div>
+
+
+<!-- ======================================
+     BUTTONS
+====================================== -->
+
+<div class="actions">
+
+    <button
+        id="saveButton"
+        type="button"
+    >
+        Save Patient Record
+    </button>
+
+
+    <button
+        id="clearButton"
+        type="button"
+    >
+        Clear Form
+    </button>
+
+</div>
+
+
+<p
+    id="status"
+    role="status"
+    aria-live="polite"
+></p>
 
 </div>
 
 
 <script>
 
-// ====================================
-// CURRENT DATE
-// ====================================
 
-function updateDate() {
+// ======================================
+// ALL 44 AIMVT SKILLS
+// ======================================
 
-    const today = new Date();
+const TASK_GROUPS = [
 
-    document.getElementById("currentDate").textContent =
-        today.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
+
+// ======================================
+// NEUROLOGY ESSENTIAL SKILLS
+// 12 TASKS
+// ======================================
+
+{
+    name: 'Neurology Essential Skills (12)',
+
+    prefix: 'NE',
+
+    tasks: [
+
+        'Neurological histories and examinations',
+
+        'Neuroanatomical localization',
+
+        'Proper handling and restraint of neurological patients',
+
+        'Manage a non-ambulatory patient',
+
+        'Seizure management',
+
+        'Calculate anticonvulsant medication doses',
+
+        'Cytarabine administration',
+
+        'Propose and implement anesthetic protocols for neurologic patients',
+
+        'Diagnostic imaging',
+
+        'Contrast agent administration',
+
+        'Cerebrospinal fluid (CSF) collection',
+
+        'Client education'
+
+    ]
+
+},
+
+
+// ======================================
+// NEUROLOGY FUNDAMENTAL ADVANCED SKILLS
+// 16 TASKS
+// ======================================
+
+{
+    name: 'Neurology Fundamental Advanced Skills (16)',
+
+    prefix: 'NA',
+
+    tasks: [
+
+        'Recognize slight mentation changes in critical neurologic patients with an understanding of potential physiological concerns such changes indicate',
+
+        'Recognize primary medical reasons for secondary neurological changes (e.g., endocrine disorders, vitamin deficiencies, or non-neurologic congenital diseases)',
+
+        'Recognize clinical signs of and understand treatment options for commonly seen neurotoxins',
+
+        'Recognize and treat common side effects of opioid pain management',
+
+        'Safely administer anticonvulsant medications',
+
+        'Appropriate patient positioning both in and out of the operating room for neurosurgical patients',
+
+        'Scrub in and provide surgical assistance for neurosurgical procedures',
+
+        'Properly set up for and monitor mechanical ventilation for neurologic patients',
+
+        'Properly set up for, assist with or perform arthrocentesis and demonstrate appropriate handling of samples for analysis',
+
+        'Properly set up for and assist with muscle and nerve biopsy procedures and demonstrate appropriate handling of samples for analysis',
+
+        'Recognize potential postoperative complications (e.g., wound infection, wound dehiscence, seroma formation) and discuss them with clients',
+
+        'Properly set up for, assist with or perform electrodiagnostic testing (EEG, BAER, EMG, nerve conduction, repetitive stimulation)',
+
+        'Place and maintain arterial catheters',
+
+        'Recognize special nutritional or feeding considerations and calculate daily caloric needs for neurologic patients',
+
+        'Explain and perform basic rehabilitative techniques and principles utilized in caring for the neurologically impaired patient',
+
+        'Measure and fit neurological devices (e.g., wheelchairs, prostheses, various harnesses, and/or other assistive devices) and educate clients on appropriate use'
+
+    ]
+
+},
+
+
+// ======================================
+// UNIVERSAL ADVANCED SKILLS
+// 16 TASKS
+// ======================================
+
+{
+    name: 'Universal Advanced Skills (16)',
+
+    prefix: 'UA',
+
+    tasks: [
+
+        'Proper record-keeping, using appropriate veterinary medical terminology for your specialty',
+
+        'Obtain an accurate and complete medical history with questions specific to your specialty',
+
+        'Complete general physical exam, including body condition scoring and pain scoring',
+
+        'Triage and emergency care of specialty patients',
+
+        'Propose and implement prescribed balanced anesthetic protocols (pre-anesthetic exams, safety/risk assessments, appropriate monitoring)',
+
+        'Blood pressure measurement (non-anesthetic): Doppler and oscillometric',
+
+        'Pain recognition and implementation of prescribed pain management treatments: local, systemic, regional',
+
+        'Continuous Rate Infusions (CRIs): calculation, administration, monitoring',
+
+        'Sample collection, handling, and storage: excretion, secretion, effusion',
+
+        'Microscopy for specialty specific cytological studies',
+
+        'Imaging (radiography and ultrasound): positioning and basic interpretation',
+
+        'Supplemental oxygen therapy',
+
+        'Oxygenation/ventilation measurement (two of: pulse oximeter, ETCO2 on intubated patients, arterial blood gas collection/interpretation)',
+
+        'Urinary catheter maintenance (male and female)',
+
+        'Male urinary catheter placement',
+
+        'Aseptically and safely collect urine samples via cystocentesis (performing or assisting, as legally allowed)'
+
+    ]
 
 }
 
-updateDate();
+];
 
-setInterval(updateDate, 60000);
 
-document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) updateDate();
+// ======================================
+// GENERATE TASK CHECKBOXES
+// ======================================
+
+const sections = document.getElementById(
+    'taskSections'
+);
+
+
+TASK_GROUPS.forEach(group => {
+
+    const section = document.createElement(
+        'section'
+    );
+
+
+    // CREATE SECTION HEADER
+
+    const heading = document.createElement(
+        'h2'
+    );
+
+    heading.textContent = group.name;
+
+    section.appendChild(heading);
+
+
+    // CREATE TASK GRID
+
+    const grid = document.createElement(
+        'div'
+    );
+
+    grid.className = 'task-grid';
+
+
+    // CREATE EACH CHECKBOX
+
+    group.tasks.forEach((task, i) => {
+
+        const label = document.createElement(
+            'label'
+        );
+
+        label.className = 'task';
+
+
+        const input = document.createElement(
+            'input'
+        );
+
+        input.type = 'checkbox';
+
+        input.value =
+            `${group.prefix}${i + 1}. ${task}`;
+
+
+        const span = document.createElement(
+            'span'
+        );
+
+        span.textContent =
+            `${i + 1}. ${task}`;
+
+
+        label.append(
+            input,
+            span
+        );
+
+        grid.appendChild(label);
+
+    });
+
+
+    section.appendChild(grid);
+
+    sections.appendChild(section);
+
 });
 
 
-// ====================================
-// SAVE PATIENT
-// ====================================
+// ======================================
+// AUTOMATIC DATE
+// ======================================
 
-async function savePatient() {
+function updateDate() {
 
-    const button = document.getElementById("saveButton");
+    document.getElementById(
+        'currentDate'
+    ).textContent =
 
-    const status = document.getElementById("status");
+        new Date().toLocaleDateString(
+            'en-US',
+            {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }
+        );
 
-    if (button.disabled) return;
-
-    const patientID =
-        document.getElementById("patientID").value.trim();
-
-    const patientName =
-        document.getElementById("patientName").value.trim();
-
-    const species =
-        document.getElementById("species").value;
-
-    const breed =
-        document.getElementById("breed").value.trim();
+}
 
 
-    if (!patientID || !patientName) {
+// UPDATE DATE WHEN PAGE LOADS
 
-        alert("Please enter Patient ID and Patient Name.");
+updateDate();
+
+
+// UPDATE DATE EVERY MINUTE
+
+setInterval(updateDate, 60000);
+
+
+// UPDATE WHEN RETURNING TO PAGE
+
+document.addEventListener(
+    'visibilitychange',
+    () => {
+
+        if (!document.hidden) {
+
+            updateDate();
+
+        }
+
+    }
+);
+
+
+// ======================================
+// CLEAR FORM
+// ======================================
+
+function clearForm(confirmFirst = true) {
+
+    if (
+        confirmFirst &&
+        !confirm('Clear the patient form?')
+    ) {
 
         return;
 
     }
 
 
-    // COLLECT COMPLETED TASKS
+    // CLEAR PATIENT INFORMATION
 
-    const completedTasks = [];
+    [
+        'patientID',
+        'patientName',
+        'breed'
+    ].forEach(id => {
 
-    document.querySelectorAll(
-        '.task-grid input[type="checkbox"]:checked'
-    ).forEach(checkbox => {
-
-        completedTasks.push(checkbox.value);
+        document.getElementById(id).value = '';
 
     });
 
 
+    document.getElementById(
+        'species'
+    ).value = '';
+
+
+    // UNCHECK ALL TASKS
+
+    document.querySelectorAll(
+        '.task-grid input:checked'
+    ).forEach(box => {
+
+        box.checked = false;
+
+    });
+
+
+    if (confirmFirst) {
+
+        document.getElementById(
+            'status'
+        ).textContent = '';
+
+    }
+
+}
+
+
+// CLEAR BUTTON
+
+document.getElementById(
+    'clearButton'
+).addEventListener(
+    'click',
+    () => clearForm(true)
+);
+
+
+// ======================================
+// SAVE PATIENT RECORD
+// ======================================
+
+async function savePatient() {
+
+    const button = document.getElementById(
+        'saveButton'
+    );
+
+    const status = document.getElementById(
+        'status'
+    );
+
+
+    if (button.disabled) {
+
+        return;
+
+    }
+
+
+    // GET PATIENT INFORMATION
+
+    const patientID = document.getElementById(
+        'patientID'
+    ).value.trim();
+
+
+    const patientName = document.getElementById(
+        'patientName'
+    ).value.trim();
+
+
+    const species = document.getElementById(
+        'species'
+    ).value;
+
+
+    const breed = document.getElementById(
+        'breed'
+    ).value.trim();
+
+
+    // VALIDATION
+
+    if (!patientID || !patientName) {
+
+        alert(
+            'Please enter Patient ID and Patient Name.'
+        );
+
+        return;
+
+    }
+
+
+    // DISABLE SAVE BUTTON
+
     button.disabled = true;
 
-    status.textContent = "Saving patient record...";
+    status.textContent =
+        'Saving patient record...';
 
 
     try {
 
+
+        // ======================================
+        // CHECK SCREENSHOT LIBRARY
+        // ======================================
+
+        if (
+            typeof html2canvas !== 'function'
+        ) {
+
+            throw new Error(
+                'Screenshot library did not load.'
+            );
+
+        }
+
+
+        // ======================================
         // TAKE SCREENSHOT
+        // ======================================
 
         const canvas = await html2canvas(
-            document.getElementById("screenshotArea"),
+
+            document.getElementById(
+                'screenshotArea'
+            ),
+
             {
-                backgroundColor: "#ffffff",
-                scale: 2
+                backgroundColor: '#ffffff',
+                scale: 1.25
             }
+
         );
 
 
-        // PREPARE RECORD
+        // ======================================
+        // COLLECT COMPLETED TASKS
+        // ======================================
+
+        const completedTasks = [
+
+            ...document.querySelectorAll(
+                '.task-grid input:checked'
+            )
+
+        ].map(input => input.value);
+
+
+        // ======================================
+        // PREPARE PATIENT DATA
+        // ======================================
 
         const data = {
 
@@ -395,19 +849,26 @@ async function savePatient() {
 
             completedTasks: completedTasks,
 
-            screenshot: canvas.toDataURL("image/png")
+            screenshot: canvas.toDataURL(
+                'image/png'
+            )
 
         };
 
 
-        // SEND TO GOOGLE APPS SCRIPT
+        // ======================================
+        // SEND DATA TO GOOGLE APPS SCRIPT
+        // ======================================
 
         google.script.run
 
-            .withSuccessHandler(function(result) {
+            .withSuccessHandler(result => {
 
                 status.textContent =
-                    "Patient record saved successfully!";
+                    `Saved! Screenshot: ${result.filename}`;
+
+
+                // CLEAR FORM AFTER SAVING
 
                 clearForm(false);
 
@@ -415,25 +876,24 @@ async function savePatient() {
 
             })
 
-            .withFailureHandler(function(error) {
+
+            .withFailureHandler(error => {
 
                 status.textContent =
-                    "Error saving patient record.";
-
-                alert(error.message);
+                    `Save failed: ${error.message}`;
 
                 button.disabled = false;
 
             })
+
 
             .savePatient(data);
 
 
     } catch (error) {
 
-        status.textContent = "Unable to create screenshot.";
-
-        alert(error.message);
+        status.textContent =
+            `Save failed: ${error.message}`;
 
         button.disabled = false;
 
@@ -442,37 +902,16 @@ async function savePatient() {
 }
 
 
-// ====================================
-// CLEAR FORM
-// ====================================
+// ======================================
+// SAVE BUTTON
+// ======================================
 
-function clearForm(confirmClear = true) {
-
-    if (confirmClear && !confirm("Clear the patient form?")) {
-        return;
-    }
-
-    document.getElementById("patientID").value = "";
-
-    document.getElementById("patientName").value = "";
-
-    document.getElementById("species").value = "";
-
-    document.getElementById("breed").value = "";
-
-    document.querySelectorAll(
-        '.task-grid input[type="checkbox"]'
-    ).forEach(checkbox => {
-
-        checkbox.checked = false;
-
-    });
-
-    if (confirmClear) {
-        document.getElementById("status").textContent = "";
-    }
-
-}
+document.getElementById(
+    'saveButton'
+).addEventListener(
+    'click',
+    savePatient
+);
 
 </script>
 
